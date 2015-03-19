@@ -1,3 +1,8 @@
+
+## Install with Composer
+
+add `"o3co/symfony-extension-process" : "~0.1.0"` to `require` 
+
 ## Execute Command in Isolated Process
 
 ````php
