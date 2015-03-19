@@ -1,5 +1,5 @@
 {
-	"name": "o3co/symfony-process-extension",
+	"name": "o3co/symfony-extension-process",
 	"type": "library",
 	"description": "Symfony Process Extension",
 	"keywords": [
