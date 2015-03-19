@@ -1,19 +1,20 @@
 <?php
 namespace O3Co\SymfonyExtension\Process;
 
-use Symfony\Component\Console\CommandInterface;
-use Symfony\Component\Process\PhpProcess;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * CommandProcess 
  * 
- * @uses PhpProcess
+ * @uses Process
  * @package { PACKAGE }
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license { LICENSE }
  */
-class CommandProcess extends PhpProcess 
+class CommandProcess extends Process 
 {
 	/**
 	 * __construct 
@@ -42,8 +43,7 @@ class CommandProcess extends PhpProcess
 	 */
 	public function setCommand(Command $command, InputInterface $input)
 	{
-		$this->setInput(new CommandFormatter($command, $input, 'app/console'));
-		return $this;
+		return $this->setCommandLine(new CommandFormatter($command, $input));
 	}
 }
 

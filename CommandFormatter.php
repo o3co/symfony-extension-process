@@ -46,7 +46,7 @@ class CommandFormatter
 	 * @access public
 	 * @return void
 	 */
-	public function __construct(Command $command, InputInterface $input, $consolePath = 'app/console')
+	public function __construct(Command $command, InputInterface $input, $consolePath = 'php app/console')
 	{
 		$this->command = $command;
 		$this->input = $input;
