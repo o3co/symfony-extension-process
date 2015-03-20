@@ -66,6 +66,7 @@ class CommandFormatter
 		$command->mergeApplicationDefinition($command->getApplication()->getDefinition());
 		$this->input->bind($command->getDefinition());
 	
+        $this->input->setArgument('command', $command->getName());
 		$this->input->validate();
 		
 		$args = array();
@@ -86,7 +87,7 @@ class CommandFormatter
 			}
 		}
 
-		return $this->consolePath . ' ' . $command->getName() . ' ' . implode(' ', $args);
+		return $this->consolePath . ' ' . implode(' ', $args);
 	}
 
 	/**
