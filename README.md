@@ -1,3 +1,8 @@
+# Symfony Process Extension
+
+## Building Status
+
+[![Build Status](https://travis-ci.org/o3co/symfony-extension-process.svg?branch=master)](https://travis-ci.org/o3co/symfony-extension-process)
 
 ## Install with Composer
 
