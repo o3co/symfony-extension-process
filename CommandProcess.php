@@ -45,5 +45,24 @@ class CommandProcess extends Process
 	{
 		return $this->setCommandLine(new CommandFormatter($command, $input));
 	}
+
+    
+    /**
+     * start 
+     * 
+     * @param mixed $callback 
+     * @access public
+     * @return void
+     */
+    public function start($callback = null)
+    {
+        // convert commandline 
+        $commandline = $this->getCommandLine();
+        if($commandline instanceof CommandFormatter) {
+            $this->setCommandLine($this->getCommandLine()->format());
+        }
+
+        return parent::start($callback);
+    }
 }
 

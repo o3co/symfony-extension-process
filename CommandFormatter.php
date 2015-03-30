@@ -61,8 +61,12 @@ class CommandFormatter
 	 */
 	public function format()
 	{
-		$this->input->bind($this->command->getDefinition());
+		$command = clone $this->command;
+
+		$command->mergeApplicationDefinition($command->getApplication()->getDefinition());
+		$this->input->bind($command->getDefinition());
 	
+        $this->input->setArgument('command', $command->getName());
 		$this->input->validate();
 		
 		$args = array();
@@ -83,7 +87,7 @@ class CommandFormatter
 			}
 		}
 
-		return $this->consolePath . ' ' . $this->command->getName() . ' ' . implode(' ', $args);
+		return $this->consolePath . ' ' . implode(' ', $args);
 	}
 
 	/**
