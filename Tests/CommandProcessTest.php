@@ -27,14 +27,16 @@ class CommandProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testStart()
     {
-		$process = new CommandProcess(new EchoCommand(), new ArrayInput(array('message' => 'test message')), __DIR__ . '/Resources/bin');
-        $process->getCommandLine()->setConsolePath('echo.php');
+		$process = new CommandProcess(new EchoCommand(), new ArrayInput(array('message' => 'test message')));
+
+        $process->getCommandLine()->setConsolePath('echo');
 
         $response = $process->run();
         if (!$process->isSuccessful()) {
             $this->fail((string)$process->getErrorOutput());
         }
-        $this->assertEquals('test message', $process->getOutput());
+        // Echo replace '"' double quote, and append eol  
+        $this->assertEquals("message test message\n", $process->getOutput());
     }
 }
 
