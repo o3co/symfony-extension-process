@@ -2,6 +2,7 @@
 namespace O3Co\SymfonyExtension\Process\Tests;
 
 use O3Co\SymfonyExtension\Process\CommandProcess;
+use O3Co\SymfonyExtension\Process\Command\EchoCommand;
 use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -23,5 +24,17 @@ class CommandProcessTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceof('Symfony\Component\Console\Command\HelpCommand', $process->getCommandLine()->getCommand());
 
 	}
+
+    public function testStart()
+    {
+		$process = new CommandProcess(new EchoCommand(), new ArrayInput(array('message' => 'test message')), __DIR__ . '/Resources/bin');
+        $process->getCommandLine()->setConsolePath('echo.php');
+
+        $response = $process->run();
+        if (!$process->isSuccessful()) {
+            $this->fail((string)$process->getErrorOutput());
+        }
+        $this->assertEquals('test message', $process->getOutput());
+    }
 }
 
