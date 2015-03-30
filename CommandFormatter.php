@@ -107,5 +107,16 @@ class CommandFormatter
         $this->consolePath = $consolePath;
         return $this;
     }
+    
+    public function getCommand()
+    {
+        return $this->command;
+    }
+    
+    public function setCommand(Command $command)
+    {
+        $this->command = $command;
+        return $this;
+    }
 }
 
