@@ -80,7 +80,11 @@ class CommandFormatter
 		$args = array();
 		foreach($this->input->getArguments() as $argument) {
 			if($argument) {
-				$args[] = $argument;
+                if(is_string($argument) && preg_match('/\s/u', $argument)) {
+                    $args[] = sprintf('"%s"', $argument);
+                } else {
+				    $args[] = $argument;
+                }
 			}
 		}
 		foreach($this->input->getOptions() as $opt => $value) {
