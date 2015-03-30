@@ -3,6 +3,7 @@ namespace O3Co\SymfonyExtension\Process;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * CommandFormatter 
@@ -63,9 +64,16 @@ class CommandFormatter
 	{
 		$command = clone $this->command;
 
-		$command->mergeApplicationDefinition($command->getApplication()->getDefinition());
+        if($command->getApplication()) {
+    		$command->mergeApplicationDefinition($command->getApplication()->getDefinition());
+        }
+        if(!$command->getDefinition()->hasArgument('command')) {
+            $arguments = $command->getDefinition()->getArguments();
+            array_unshift($arguments, new InputArgument('command', InputArgument::REQUIRED, 'command name'));
+            $command->getDefinition()->setArguments($arguments);
+        }
 		$this->input->bind($command->getDefinition());
-	
+
         $this->input->setArgument('command', $command->getName());
 		$this->input->validate();
 		
@@ -83,7 +91,9 @@ class CommandFormatter
 			} else if(is_string($value)) {
 				$args[] = '--' . $opt . '="' . $value . '"';
 			} else if(!empty($value)) {
-				$args[] = '--' . $opt . '=' . $value;
+                foreach($value as $v) {
+				    $args[] = '--' . $opt . '=' . $v;
+                }
 			}
 		}
 
